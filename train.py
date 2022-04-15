@@ -161,7 +161,15 @@ def test(epoch, net, testloader, device, loss_fn, num_samples):
     os.makedirs('samples', exist_ok=True)
     images_concat = torchvision.utils.make_grid(images, nrow=int(num_samples ** 0.5), padding=2, pad_value=255)
     torchvision.utils.save_image(images_concat, 'samples/epoch_{}.png'.format(epoch))
+    try:
+        os.makedirs('/content/drive/MyDrive/glow_samples', exist_ok=True)
+    except:
+        pass
 
+    try:
+        torchvision.utils.save_image(images_concat, '/content/drive/MyDrive/glow_samples/epoch_{}.png'.format(epoch))
+    except:
+        pass
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Glow on CIFAR-10')
