@@ -137,7 +137,7 @@ def test(epoch, net, testloader, device, loss_fn, num_samples):
             progress_bar.update(x.size(0))
 
     # Save checkpoint
-    if loss_meter.avg < best_loss:
+    if True:
         print('Saving...')
         state = {
             'net': net.state_dict(),
@@ -145,10 +145,13 @@ def test(epoch, net, testloader, device, loss_fn, num_samples):
             'epoch': epoch,
         }
         os.makedirs('ckpts', exist_ok=True)
-        torch.save(state, 'ckpts/best.pth.tar')
+        torch.save(state, 'ckpts/glow_model.pth.tar')
+        torch.save(state, 'ckpts/glow_model_{}.pth.tar'.format(epoch))
+
         try:
             os.makedirs('/content/drive/MyDrive/glow_ckpts', exist_ok=True)
-            torch.save(state, '/content/drive/MyDrive/glow_ckpts/glow_best.pth.tar')
+            torch.save(state, '/content/drive/MyDrive/glow_ckpts/glow_model.pth.tar')
+            torch.save(state, '/content/drive/MyDrive/glow_ckpts/glow_model_{}.pth.tar'.format(epoch))
         except:
             pass
         best_loss = loss_meter.avg
