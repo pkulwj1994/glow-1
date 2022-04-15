@@ -146,6 +146,11 @@ def test(epoch, net, testloader, device, loss_fn, num_samples):
         }
         os.makedirs('ckpts', exist_ok=True)
         torch.save(state, 'ckpts/best.pth.tar')
+        try:
+            os.makedirs('/content/drive/MyDrive/glow_ckpts', exist_ok=True)
+            torch.save(state, '/content/drive/MyDrive/glow_ckpts/glow_best.pth.tar')
+        except:
+            pass
         best_loss = loss_meter.avg
 
     # Save samples and data
