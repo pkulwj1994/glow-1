@@ -59,9 +59,9 @@ def main(args):
     start_epoch = 0
     if args.resume:
         # Load checkpoint.
-        print('Resuming from checkpoint at ckpts/best.pth.tar...')
+        print('Resuming from checkpoint at ckpts/glow_model.pth.tar...')
         assert os.path.isdir('ckpts'), 'Error: no checkpoint directory found!'
-        checkpoint = torch.load('ckpts/best.pth.tar')
+        checkpoint = torch.load('ckpts/glow_model.pth.tar')
         net.load_state_dict(checkpoint['net'])
         global best_loss
         global global_step
