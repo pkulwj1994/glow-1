@@ -18,6 +18,17 @@ import util
 from models import Glow
 from tqdm import tqdm
 
+import torchvision.utils as vutils
+import matplotlib.pyplot as plt 
+
+def one_shot_vis(imgTensor,nrow):
+	# assert isinstance(dataloader,DataLoader)
+	imgTensor = imgTensor[0:nrow*nrow]
+	grid = vutils.make_grid(imgTensor[:nrow*nrow], padding = 4, nrow=nrow)
+	grid = grid.permute(1, 2, 0)
+	plt.imshow(grid)
+	plt.show()
+
 
 def main(args):
     try:
@@ -166,6 +177,12 @@ def test(epoch, net, testloader, device, loss_fn, num_samples):
 
     # Save samples and data
     images = sample(net, num_samples, device)
+    
+    try:
+        one_shot_vis(images.cpu(),int(num_samples ** 0.5))
+    except:
+        pass
+        
     os.makedirs('samples', exist_ok=True)
     images_concat = torchvision.utils.make_grid(images, nrow=int(num_samples ** 0.5), padding=2, pad_value=255)
     torchvision.utils.save_image(images_concat, 'samples/epoch_{}.png'.format(epoch))
