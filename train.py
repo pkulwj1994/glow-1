@@ -20,6 +20,10 @@ from tqdm import tqdm
 
 
 def main(args):
+    try:
+        os.makedirs('/content/drive/MyDrive/glow_ckpts', exist_ok=True)
+    except:
+        pass
     # Set up main device and scale batch size
     device = 'cuda' if torch.cuda.is_available() and args.gpu_ids else 'cpu'
     args.batch_size *= max(1, len(args.gpu_ids))
